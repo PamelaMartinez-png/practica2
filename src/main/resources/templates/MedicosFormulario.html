@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="/dist/css/adminlte.min.css">
+    <link rel="stylesheet" href="/plugins/fontawesome-free/css/all.min.css">
+</head>
+<body class="hold-transition login-page"> <div class="register-box" style="width: 500px;">
+    <div class="card card-outline card-primary">
+        <div class="sidebar">
+        <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+            <div class="info">
+                <a href="#" class="d-block" th:text="${usuario}">Usuario</a>
+                <a href="#" class="d-block" th:text="${session.usuarioLogueado}">Usuario</a>
+            </div>
+        </div>
+
+            <nav class="mt-2">
+                <ul class="nav nav-pills nav-sidebar flex-column">
+                    <li class="nav-item"><a th:href="@{/dashboard}" class="nav-link"><i class="nav-icon fas fa-tachometer-alt"></i><p>Dashboard</p></a></li>
+                    <li class="nav-item"><a th:href="@{/medicos}" class="nav-link"><i class="nav-icon fas fa-user-md"></i><p>Médicos</p></a></li>
+                    <li class="nav-item"><a th:href="@{/pacientes}" class="nav-link"><i class="nav-icon fas fa-user-injured"></i><p>Pacientes</p></a></li>
+                    <li class="nav-item"><a th:href="@{/consultas}" class="nav-link"><i class="nav-icon fas fa-notes-medical"></i><p>Consultas</p></a></li>
+                    <li class="nav-item"><a th:href="@{/dashboard}" class="nav-link"><i class="nav-icon fas fa-chart-bar"></i><p>Estadísticas</p></a></li>
+                    <li class="nav-item mt-5"><a th:href="@{/auth/login}" class="nav-link text-danger"><i class="nav-icon fas fa-sign-out-alt"></i><p>Cerrar Sesión</p></a></li>
+                </ul>
+            </nav>
+        </div>
+        <div class="card-header text-center">
+            <h1 th:text="${medico.id == null} ? 'Nuevo Médico' : 'Editar Médico'"></h1>
+
+        </div>
+        <div class="card-body">
+            <form th:action="@{/medicos/guardar}" th:object="${medico}" method="post">
+
+                <input type="hidden" th:field="*{id}">
+
+                <div class="form-group">
+                    <label>Nombre:</label>
+                    <input type="text" th:field="*{nombre}" class="form-control" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Especialidad:</label>
+                    <input type="text" th:field="*{especialidad}" class="form-control" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Matrícula:</label>
+                    <input type="text" th:field="*{matricula}" class="form-control" required>
+                </div>
+
+                <div class="row">
+                    <div class="col-6">
+                        <a th:href="@{/medicos}" class="btn btn-secondary btn-block">Cancelar</a>
+                    </div>
+                    <div class="col-6">
+                        <button type="submit" class="btn btn-primary btn-block">Guardar</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>

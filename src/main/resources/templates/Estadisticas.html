@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Hospital | Estadísticas</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+    <link rel="stylesheet" href="/plugins/fontawesome-free/css/all.min.css">
+    <link rel="stylesheet" href="/dist/css/adminlte.min.css">
+</head>
+<body class="hold-transition sidebar-mini">
+<div class="wrapper">
+    <!-- En el sidebar, agrega el user-panel que le falta: -->
+    <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+        <div class="info">
+            <a href="#" class="d-block" th:text="${usuario}">Usuario</a>
+        </div>
+    </div>
+    <aside class="main-sidebar sidebar-dark-primary elevation-4">
+        <div class="sidebar">
+            <nav class="mt-2">
+                <ul class="nav nav-pills nav-sidebar flex-column">
+                    <li class="nav-item"><a th:href="@{/dashboard}" class="nav-link"><p>Dashboard</p></a></li>
+                    <li class="nav-item"><a th:href="@{/medicos}" class="nav-link"><p>Médicos</p></a></li>
+                    <li class="nav-item"><a th:href="@{/pacientes}" class="nav-link"><p>Pacientes</p></a></li>
+<!--                    <li class="nav-item"><a th:href="@{/estadisticas}" class="nav-link active"><p>Estadísticas</p></a></li>-->
+                </ul>
+            </nav>
+        </div>
+    </aside>
+
+    <div class="content-wrapper">
+        <section class="content-header">
+            <div class="container-fluid"><h1>Análisis del Hospital</h1></div>
+        </section>
+
+        <section class="content">
+            <div class="container-fluid">
+                <div class="row">
+
+                    <div class="col-md-6">
+                        <div class="card card-info">
+                            <div class="card-header"><h3 class="card-title">Personal vs Pacientes</h3></div>
+                            <div class="card-body"><canvas id="barChart" style="min-height: 250px;"></canvas></div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="card card-danger">
+                            <div class="card-header"><h3 class="card-title">Porcentaje de Registros</h3></div>
+                            <div class="card-body"><canvas id="donutChart" style="min-height: 250px;"></canvas></div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="card card-success">
+                            <div class="card-header"><h3 class="card-title">Tendencia de Consultas</h3></div>
+                            <div class="card-body"><canvas id="lineChart" style="min-height: 250px;"></canvas></div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="card card-warning">
+                            <div class="card-header"><h3 class="card-title">Ocupación Hospitalaria</h3></div>
+                            <div class="card-body"><canvas id="areaChart" style="min-height: 250px;"></canvas></div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+<script src="/plugins/jquery/jquery.min.js"></script>
+<script src="/plugins/chart.js/Chart.min.js"></script>
+<script src="/dist/js/adminlte.min.js"></script>
+
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    const medicos  = /*[[${totalMedicos}]]*/ 0;
+    const pacientes = /*[[${totalPacientes}]]*/ 0;
+
+    new Chart($('#barChart').get(0).getContext('2d'), {
+        type: 'bar',
+        data: {
+            labels: ['Médicos', 'Pacientes'],
+            datasets: [{ label: 'Total', backgroundColor: ['#17a2b8','#28a745'], data: [medicos, pacientes] }]
+        }
+    });
+
+    new Chart($('#donutChart').get(0).getContext('2d'), {
+        type: 'doughnut',
+        data: {
+            labels: ['Médicos', 'Pacientes'],
+            datasets: [{ data: [medicos, pacientes], backgroundColor: ['#17a2b8','#28a745'] }]
+        }
+    });
+
+    new Chart($('#lineChart').get(0).getContext('2d'), {
+        type: 'line',
+        data: {
+            labels: ['Ene','Feb','Mar','Abr'],
+            datasets: [{ label: 'Consultas', borderColor: '#28a745', data: [10, 25, 15, pacientes] }]
+        }
+    });
+
+    new Chart($('#areaChart').get(0).getContext('2d'), {
+        type: 'line',
+        data: {
+            labels: ['Semana 1','Semana 2','Semana 3','Semana 4'],
+            datasets: [{ label: 'Ocupación %', backgroundColor: 'rgba(255,193,7,0.5)', fill: true, data: [30,50,40,70] }]
+        }
+    });
+    /*]]>*/
+</script>
+
+
+</body>
+</html>

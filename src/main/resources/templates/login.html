@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"  lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Hospital-Inicio de Sesion</title>
+
+  <!-- Google Font: Source Sans Pro -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="/plugins/fontawesome-free/css/all.min.css">
+  <!-- icheck bootstrap -->
+  <link rel="stylesheet" href="/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="/dist/css/adminlte.min.css">
+</head>
+<body class="hold-transition login-page">
+<div class="login-box">
+  <div class="login-logo">
+    <a href="../../index2.html"><b>Hospital</b></a>
+  </div>
+  <!-- /.login-logo -->
+  <div class="card">
+    <div class="card-body login-card-body">
+      <p class="login-box-msg">Inicia sesion</p>
+
+
+      <!-- Mensaje de error -->
+      <div th:if="${error}" class="alert alert-danger alert-dismissible">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <i class="icon fas fa-ban"></i>
+        <span th:text="${error}"></span>
+      </div>
+      <form th:action="@{/auth/login}" method="post">
+        <div class="input-group mb-3">
+          <input type="text" name="username" class="form-control" placeholder="Nombre de usuario o Email" required>
+          <div class="input-group-append">
+            <div class="input-group-text">
+              <span class="fas fa-envelope"></span>
+            </div>
+          </div>
+        </div>
+        <div class="input-group mb-3">
+          <input type="password" name="password" class="form-control" placeholder="Contraseña">
+          <div class="input-group-append">
+            <div class="input-group-text">
+              <span class="fas fa-lock"></span>
+            </div>
+          </div>
+        </div>
+    <!-- -->
+
+        <div class="form-group text-center mb-3">
+          <label class="d-block">¿Como deseas ingresar?</label>
+          <div class="custom-control custom-radio custom-control-inline">
+            <input type="radio" id="rolDoc" name="rol" value="DOCTOR" class="custom-control-input" checked>
+            <label class="custom-control-label" for="rolDoc">Medico</label>
+          </div>
+          <div class="custom-control custom-radio custom-control-inline">
+            <input type="radio" id="rolPac" name="rol" value="PACIENTE" class="custom-control-input">
+            <label class="custom-control-label" for="rolPac">Paciente</label>
+          </div>
+        </div>
+
+        <!-- -->
+        <div class="row">
+          <div class="col-8">
+            <div class="icheck-primary">
+              <input type="checkbox" id="remember">
+              <label for="remember">
+                Recordarme
+              </label>
+            </div>
+          </div>
+          <!-- /.col -->
+          <div class="col-4">
+            <button type="submit" class="btn btn-primary btn-block">Ingresar</button>
+          </div>
+          <!-- /.col -->
+        </div>
+      </form>
+
+<!--      <div class="social-auth-links text-center mb-3">-->
+<!--        <p>- OR -</p>-->
+<!--        <a href="#" class="btn btn-block btn-primary">-->
+<!--          <i class="fab fa-facebook mr-2"></i> Inicia sesion usando Facebook-->
+<!--        </a>-->
+<!--        <a href="#" class="btn btn-block btn-danger">-->
+<!--          <i class="fab fa-google-plus mr-2"></i> Inicia sesion usando Google+-->
+<!--        </a>-->
+<!--      </div>-->
+<!--      &lt;!&ndash; /.social-auth-links &ndash;&gt;-->
+
+      <p class="mb-1">
+<!--        <a href="forgot-password.html">Olvide mi contraseña</a>-->
+        <a th:href="@{/auth/forgot}">Olvide mi contraseña</a>
+      </p>
+      <p class="mb-0">
+<!--        <a href="register.html" class="text-center">Registrarme</a>-->
+        <a th:href="@{/auth/register}"   class="text-center">Registrarme</a>
+      </p>
+    </div>
+    <!-- /.login-card-body -->
+  </div>
+</div>
+<!-- /.login-box -->
+
+<!-- jQuery -->
+<script src="/plugins/jquery/jquery.min.js"></script>
+<!-- Bootstrap 4 -->
+<script src="/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<!-- AdminLTE App -->
+<script src="/dist/js/adminlte.min.js"></script>
+</body>
+</html>

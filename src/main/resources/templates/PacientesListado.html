@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+<head>
+    <meta charset="utf-8">
+    <title>Hospital | Pacientes</title>
+    <link rel="stylesheet" href="/plugins/fontawesome-free/css/all.min.css">
+    <link rel="stylesheet" href="/dist/css/adminlte.min.css">
+</head>
+<body class="hold-transition sidebar-mini">
+<div class="wrapper">
+    <aside class="main-sidebar sidebar-dark-primary elevation-4">
+        <div class="sidebar">
+            <nav class="mt-2">
+                <ul class="nav nav-pills nav-sidebar flex-column">
+                    <li class="nav-item"><a th:href="@{/dashboard}" class="nav-link"><p>Dashboard</p></a></li>
+                    <li class="nav-item"><a th:href="@{/medicos}" class="nav-link"><p>Médicos</p></a></li>
+                    <li class="nav-item"><a th:href="@{/pacientes}" class="nav-link active"><p>Pacientes</p></a></li>
+                </ul>
+            </nav>
+        </div>
+    </aside>
+
+    <div class="content-wrapper">
+        <section class="content-header">
+            <div class="container-fluid">
+                <div class="row mb-2">
+                    <div class="col-sm-6"><h1>Pacientes</h1></div>
+                    <div class="col-sm-6 text-right">
+                        <a th:href="@{/pacientes/nuevo}" class="btn btn-success"><i class="fas fa-user-plus"></i> Nuevo Paciente</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="content">
+            <div class="card">
+                <div class="card-body">
+                    <table class="table table-hover">
+                        <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nombre</th>
+                            <th>DNI / Identificación</th>
+                            <th>Fecha Nacimiento</th>
+                            <th>Acciones</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="paciente : ${pacientes}">
+                            <td th:text="${paciente.id}"></td>
+                            <td th:text="${paciente.nombre}"></td>
+                            <td th:text="${paciente.dni}"></td>
+                            <td th:text="${paciente.fecha}"></td>
+                            <td>
+                                <a th:href="@{/pacientes/editar/{id}(id=${paciente.id})}" class="btn btn-warning btn-sm"><i class="fas fa-edit"></i></a>
+                                <a th:href="@{/pacientes/eliminar/{id}(id=${paciente.id})}" class="btn btn-danger btn-sm" onclick="return confirm('¿Eliminar paciente?')"><i class="fas fa-trash"></i></a>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+</body>
+</html>

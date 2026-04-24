@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="/dist/css/adminlte.min.css">
+    <link rel="stylesheet" href="/plugins/fontawesome-free/css/all.min.css">
+</head>
+<body class="hold-transition login-page">
+<div class="register-box" style="width: 560px;">
+    <div class="card card-outline card-primary">
+        <div class="card-header text-center">
+            <h2 th:text="${consulta.id == null} ? 'Nueva Consulta' : 'Editar Consulta'"></h2>
+        </div>
+        <div class="card-body">
+            <form th:action="@{/consultas/guardar}" th:object="${consulta}" method="post">
+                <input type="hidden" th:field="*{id}">
+
+                <div class="form-group">
+                    <label>Médico:</label>
+                    <select th:field="*{idMedico}" class="form-control" required>
+                        <option value="">-- Selecciona un médico --</option>
+                        <option th:each="medico : ${medicos}"
+                                th:value="${medico.id}"
+                                th:text="${medico.nombre} + ' - ' + ${medico.especialidad}">
+                        </option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Paciente:</label>
+                    <select th:field="*{idPaciente}" class="form-control" required>
+                        <option value="">-- Selecciona un paciente --</option>
+                        <option th:each="paciente : ${pacientes}"
+                                th:value="${paciente.id}"
+                                th:text="${paciente.nombre} + ' - ' + ${paciente.dni}">
+                        </option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Fecha y Hora:</label>
+                    <input type="datetime-local" th:field="*{fecha}" class="form-control" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Diagnóstico:</label>
+                    <textarea th:field="*{diagnostico}" class="form-control" rows="3" required></textarea>
+                </div>
+
+                <div class="row mt-3">
+                    <div class="col-6">
+                        <a th:href="@{/consultas}" class="btn btn-secondary btn-block">Cancelar</a>
+                    </div>
+                    <div class="col-6">
+                        <button type="submit" class="btn btn-primary btn-block">Guardar</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script src="/plugins/jquery/jquery.min.js"></script>
+<script src="/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="/dist/js/adminlte.min.js"></script>
+</body>
+</html>

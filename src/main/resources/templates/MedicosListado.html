@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Hospital | Listado de Médicos</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+  <link rel="stylesheet" href="/plugins/fontawesome-free/css/all.min.css">
+  <link rel="stylesheet" href="/dist/css/adminlte.min.css">
+</head>
+<body class="hold-transition sidebar-mini">
+<div class="wrapper">
+
+  <aside class="main-sidebar sidebar-dark-primary elevation-4">
+    <div class="sidebar">
+      <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+        <div class="info">
+          <a th:href="@{/auth/logout}"  class="d-block" th:text="${usuario}">Usuario</a>
+        </div>
+      </div>
+      <nav class="mt-2">
+        <ul class="nav nav-pills nav-sidebar flex-column">
+          <li class="nav-item"><a th:href="@{/dashboard}" class="nav-link"><p>Dashboard</p></a></li>
+          <li class="nav-item"><a th:href="@{/medicos}" class="nav-link active"><p>Médicos</p></a></li>
+          <li class="nav-item"><a th:href="@{/pacientes}" class="nav-link"><p>Pacientes</p></a></li>
+        </ul>
+      </nav>
+    </div>
+  </aside>
+
+  <div class="content-wrapper">
+    <section class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6"><h1>Gestión de Médicos</h1></div>
+          <div class="col-sm-6 text-right">
+            <a th:href="@{/medicos/nuevo}" class="btn btn-primary"><i class="fas fa-plus"></i> Agregar Médico</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="content">
+      <div class="card">
+        <div class="card-header"><h3 class="card-title">Médicos Registrados</h3></div>
+        <div class="card-body">
+          <table class="table table-bordered table-striped">
+            <thead>
+            <tr>
+              <th>ID</th>
+              <th>Nombre</th>
+              <th>Especialidad</th>
+              <th>Teléfono</th>
+              <th>Acciones</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="medico : ${medicos}">
+              <td th:text="${medico.id}"></td>
+              <td th:text="${medico.nombre}"></td>
+              <td th:text="${medico.especialidad}"></td>
+              <td th:text="${medico.matricula}"></td>
+              <td>
+                <a th:href="@{/medicos/editar/{id}(id=${medico.id})}" class="btn btn-warning btn-sm">
+                  <i class="fas fa-edit"></i> Editar
+                </a>
+                <a th:href="@{/medicos/eliminar/{id}(id=${medico.id})}" class="btn btn-danger btn-sm"
+                   onclick="return confirm('¿Estás seguro de eliminar este registro?')">
+                  <i class="fas fa-trash"></i> Eliminar
+                </a>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+  </div>
+</div>
+
+<script src="/plugins/jquery/jquery.min.js"></script>
+<script src="/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="/dist/js/adminlte.min.js"></script>
+</body>
+</html>
